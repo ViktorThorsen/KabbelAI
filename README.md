@@ -1,17 +1,37 @@
-Projektbeskrivning: Käbbel-AI
-Käbbel-AI är en intelligent analytikerplattform som ger användare möjlighet att söka, visualisera och analysera debatter och partiprogram från den svenska riksdagen (2012–2026). Genom att kombinera modern sökteknik med stora språkmodeller (LLM) förvandlar applikationen tusentals timmar av politiskt "käbbel" till strukturerade insikter och faktabaserade sammanfattningar.
+## Käbbel-AI
+En intelligent analytikerplattform för sökning, visualisering och analys av debatter och partiprogram från den svenska riksdagen (2012–2026). Systemet kombinerar modern sökteknik med stora språkmodeller (LLM) för att omvandla omfattande politisk data till strukturerade insikter.
 
-Projektet är uppdelat med 2st olika AI modeller som används i tre steg.
-- NR1: Gemini flash 2.0-modell vars uppgift är att dekonstruera frågan. Den agerar som en "router" som bestämmer:
-Relevant tidsperiod: Ska vi titta på nuvarande mandatperiod eller historiska data?
-Behov av statistik: Är frågan av typen "vem pratar mest om..."?
-Källval: Behövs officiella partiprogram (ideologi) eller faktiska debattprotokoll (handling)?
+---
 
--NR2: paraphrase-multilingual-MiniLM-L12-v2. Den har i uppgift att utefter sökparametrarna som NR1 gav den hitta relevanta dokument i en vektordatabas.
+### Systemarkitektur
+Projektet är uppbyggt kring ett arbetsflöde i tre steg som utnyttjar två olika typer av AI-modeller.
 
--NR3: Ytterligare en Gemini flash 2.0 instans denna har i uppgift att utefter datan som NR2 gav den, sammanfatta och formulera ett svar på frågan från användaren.
+#### Steg 1: Frågedekonstruktion (Router)
+**Modell:** Gemini Flash 2.0
+Det första steget fungerar som en router som analyserar användarens fråga för att bestämma:
+* **Tidsperiod:** Om analysen ska fokusera på nuvarande mandatperiod eller historisk data.
+* **Statistikbehov:** Om frågan kräver kvantitativ data (t.ex. "vem pratar mest om...").
+* **Källval:** Om systemet ska prioritera officiella partiprogram (ideologi) eller debattprotokoll (faktiska handlingar).
 
-Hur man startar projektet.
-    1. Skapa en .env fil i roten av projektet. I denna skriv GEMINI_API_KEY=[Med_din_gemini_api_nyckel].
-    2. Skapa en python venv och kör pip install -r requirements.txt
-    3. Kör streamlit run KabbelAI.py
+#### Steg 2: Informationshämtning (Retrieval)
+**Modell:** paraphrase-multilingual-MiniLM-L12-v2
+Detta steg använder sökparametrarna från steg 1 för att identifiera och hämta relevanta dokument från en vektordatabas genom semantisk sökning.
+
+#### Steg 3: Sammanställning och Svar (Synthesis)
+**Modell:** Gemini Flash 2.0
+En andra instans av Gemini Flash tar informationen från steg 2 och sammanställer den till ett strukturerat, faktabaserat svar som direkt adresserar användarens ursprungliga fråga.
+
+---
+
+### Installation och konfiguration
+
+#### 1. Miljövariabler
+Skapa en fil med namnet `.env` i projektets rotmapp. Lägg till din API-nyckel enligt följande format:
+GEMINI_API_KEY=[DIN_GEMINI_API_NYCKEL]
+
+#### 2. Skapa en virtuell miljö och installera nödvändiga bibliotek
+python -m venv venv
+pip install -r requirements.txt
+
+#### 3. Starta applikationen
+streamlit run KabbelAI.py

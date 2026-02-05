@@ -204,13 +204,13 @@ if st.button("ANALYS", use_container_width=True):
             topic_program = analys.get("topic_program", user_question)
             need_program = bool(analys.get("need_program", False))
                 
-            st.caption(f"📅 År: {start_year}-{end_year} | 📊 Statistik-läge: **{'PÅ' if need_statistics else 'AV'}**")
+            st.caption(f"År: {start_year}-{end_year} | Statistik-läge: **{'PÅ' if need_statistics else 'AV'}**")
 
             context_str = ""
             final_context = []
 # Andra AI-STEGET
             if need_statistics:
-                with st.spinner("📊 Beräknar statistik..."):
+                with st.spinner("Beräknar statistik..."):
                     statistik_data = get_statistics(collection, search_word_debate, start_year, end_year)
                         
                     df_stat = pd.DataFrame(list(statistik_data.items()), columns=['Parti', 'Antal'])
@@ -222,7 +222,7 @@ if st.button("ANALYS", use_container_width=True):
                     stat_summary = "\n".join([f"{p}: {antal} anföranden" for p, antal in statistik_data.items()])
                     context_str = f"STATISTIK ÖVER SÖKORD ({', '.join(search_word_debate)}):\n{stat_summary}"
             else:
-                with st.spinner("⏳ Hämtar och sorterar textdata..."):
+                with st.spinner("Hämtar och sorterar textdata..."):
                     raw_context = get_smart_context(
                         collection, search_word_debate, topic_program, partier, start_year, end_year, need_program
                     )
