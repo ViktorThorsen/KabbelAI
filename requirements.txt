@@ -2,3 +2,7 @@ chromadb
 google-genai
 sentence-transformers
 nltk
+plotly
+pandas
+streamlit
+python-dotenv
