@@ -35,3 +35,4 @@ pip install -r requirements.txt
 
 #### 3. Starta applikationen
 streamlit run KabbelAI.py
+## Databsen är just nu inte uppladdad! Eftersom filen är för stor, vill du ha tydligare beskrivning hur du kan koppla en databas, skriv ett meddelande.
